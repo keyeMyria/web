@@ -38,7 +38,6 @@ urlpatterns = [
     path('make/<time:start_time>/<machine:machine>/', login_required(reservation.reservation.MakeReservationView.as_view()), name="make_reservation"),
     path('me/', login_required(reservation.overview.MyReservationsView.as_view()), name="my_reservations"),
     path('admin/', permission_required('make_queue.can_create_event_reservation', raise_exception=True)(admin.reservation.AdminReservationView.as_view()), name="admin_reservation"),
-    path('admin/machines/', permission_required('make_queue.change_machine')(admin.machine.MachineControlPanelView.as_view()), name="machine_control_panel"),
     path('delete/', login_required(reservation.reservation.DeleteReservationView.as_view()), name="delete_reservation"),
     path('change/<reservation:reservation>/', login_required(reservation.reservation.ChangeReservationView.as_view()), name="change_reservation"),
     path('json/', include(json_urlpatterns)),

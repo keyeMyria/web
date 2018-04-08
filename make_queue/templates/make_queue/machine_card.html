@@ -1,6 +1,12 @@
 {% load reservation_extra %}
 <div class="ui {% if color_bottom %}{% card_color_from_machine_status machine %}{% endif %} card">
     <div class="content">
+        {% if perms.make_queue.change_machine %}
+            <div class="right floated meta">
+                <i class="ui yellow cog icon"></i>
+                <i class="ui red delete icon"></i>
+            </div>
+        {% endif %}
         <div class="header">
             {{ machine.name }}
         </div>
