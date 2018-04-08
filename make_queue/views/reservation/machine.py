@@ -1,4 +1,6 @@
-from django.views.generic import TemplateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, DeleteView
 
 from make_queue.models import Machine
 
@@ -17,3 +19,12 @@ class MachineView(TemplateView):
         return {"machine_types": [{
             "name": machine_type.literal, "machines": list(machine_type.objects.all())
         } for machine_type in Machine.__subclasses__() if machine_type.objects.exists()]}
+
+
+class DeleteMachineView(PermissionRequiredMixin, DeleteView):
+    """View for deleting a machine"""
+    model = Machine
+    success_url = reverse_lazy('reservation_machines_overview')
+    permission_required = (
+        'make_queue.delete_machine',
+    )
