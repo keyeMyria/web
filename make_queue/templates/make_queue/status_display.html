@@ -1,0 +1,23 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'make_queue/css/status_display.css' %}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="centered">
+        {% for printer in printers %}
+            <div class="printer overview">
+                {% include 'make_queue/machine_card.html' with machine=printer %}
+                <div class="printer calendar" data-pk="{{ printer.pk }}">
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script src="{% static 'make_queue/js/status_display.js' %}"></script>
+
+{% endblock %}
